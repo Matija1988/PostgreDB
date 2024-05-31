@@ -1,13 +1,16 @@
-Insert into "Category"("Name", "Description")
-Values 
+INSERT INTO
+	"Category" ("Name", "Description")
+VALUES
 	(
-	'Graphics Processing Unit (GPU)',
-	'Specialized electronic circuit designed to accelerate computer graphics and image processing.'
+		'Graphics Processing Unit (GPU)',
+		'Specialized electronic circuit designed to accelerate computer graphics and image processing.'
 	),
-(
-	'Central Processing Unit (CPU)',
-	'CPU is hardware that performs data input/output, processing and storage functions for a computer system.'
-);
+	(
+		'Central Processing Unit (CPU)',
+		'CPU is hardware that performs data input/output, processing and storage functions for a computer system.'
+	);
 
-Select * from "Category";
-
+SELECT
+	*
+FROM
+	"Category";

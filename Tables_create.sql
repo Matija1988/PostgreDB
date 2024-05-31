@@ -1,159 +1,129 @@
-Create table "Warehouse"(
-	
-    "Id" serial Primary key ,
-	"AdressStreet" varchar(100) not null,
-	"AdressMunicipality" varchar(100) not null,
-	"AdressCountry" varchar(100) not null,
-	"Name" varchar(100) not null
-	
+CREATE TABLE "Warehouse" (
+	"Id" SERIAL PRIMARY KEY,
+	"AddressStreet" VARCHAR(100) NOT NULL,
+	"AddressMunicipality" VARCHAR(100) NOT NULL,
+	"AddressCountry" VARCHAR(100) NOT NULL,
+	"Name" VARCHAR(100) NOT NULL
 );
 
-
-
-Create table "Category"(
-
-	"Id" serial primary key,
-	"Name" varchar(100) not null,
-	"Description" varchar(300) 
-	
+CREATE TABLE "Category" (
+	"Id" SERIAL PRIMARY KEY,
+	"Name" VARCHAR(100) NOT NULL,
+	"Description" VARCHAR(300)
 );
 
-create table "Producer"(
-
-	"Id" serial primary key,
-	"Name" varchar not null,
-	"Description" varchar(500),
-	"AdressHQ" varchar(200) not null,
-	"Abbreviation" varchar(16),
-	"SoftDelete" bool,
-	"DeleteDate" Date
-	
+CREATE TABLE "Producer" (
+	"Id" SERIAL PRIMARY KEY,
+	"Name" VARCHAR NOT NULL,
+	"Description" VARCHAR(500),
+	"AddressHQ" VARCHAR(200) NOT NULL,
+	"Abbreviation" VARCHAR(16),
+	"SoftDelete" BOOL,
+	"DeleteDate" DATE
 );
 
-create table "Country" (
-	"Id" serial primary key,
-	"Name" varchar(100) not null
+CREATE TABLE "Country" (
+	"Id" SERIAL PRIMARY KEY,
+	"Name" VARCHAR(100) NOT NULL
 );
 
-create table "Tax"(
-	"Id" serial primary key,
-	"Name" varchar(100) not null,
-	"CountryId" int not null ,
-	"Percentage" decimal(3,2) not null,
-
-	Constraint FK_Tax_Country_CountryId Foreign key ("CountryId") references "Country"("Id")
+CREATE TABLE "Tax" (
+	"Id" SERIAL PRIMARY KEY,
+	"Name" VARCHAR(100) NOT NULL,
+	"CountryId" INT NOT NULL,
+	"Percentage" DECIMAL(3, 2) NOT NULL,
+	CONSTRAINT FK_TAX_COUNTRY_COUNTRYID FOREIGN KEY ("CountryId") REFERENCES "Country" ("Id")
 );
 
-create table "Product"(
-	"Id" serial primary key,
-	"Name" varchar(100) not null,
-	"Description" varchar(1200),
-	"PrinceNoTax" decimal (5,2) not null,
-	"PriceWTax" decimal (5,2),
-	"ProducerId" int not null,
-	"SoftDelete" bool,
-	"DeleteDate" date,
-	"UpdateDate" date,
-	"WarehouseId" int not null,
-	"TaxId" int,
-	"CategoryId" int not null,
-
-
-	Constraint FK_Product_Producer_ProducerId Foreign key ("ProducerId") references "Producer"("Id"),
-	Constraint FK_Product_Warehouse_WarehouseId Foreign key ("WarehouseId") references "Warehouse"("Id"),
-    Constraint FK_Product_Tax_TaxId Foreign key ("TaxId") references "Tax"("Id"),
-	Constraint FK_Product_Category_CategoryId Foreign key ("CategoryId") references "Category"("Id")
-
-
+CREATE TABLE "Product" (
+	"Id" SERIAL PRIMARY KEY,
+	"Name" VARCHAR(100) NOT NULL,
+	"Description" VARCHAR(1200),
+	"PrinceNoTax" DECIMAL(5, 2) NOT NULL,
+	"PriceWTax" DECIMAL(5, 2),
+	"ProducerId" INT NOT NULL,
+	"SoftDelete" BOOL,
+	"DeleteDate" DATE,
+	"UpdateDate" DATE,
+	"WarehouseId" INT NOT NULL,
+	"TaxId" INT,
+	"CategoryId" INT NOT NULL,
+	CONSTRAINT FK_PRODUCT_PRODUCER_PRODUCERID FOREIGN KEY ("ProducerId") REFERENCES "Producer" ("Id"),
+	CONSTRAINT FK_PRODUCT_WAREHOUSE_WAREHOUSEID FOREIGN KEY ("WarehouseId") REFERENCES "Warehouse" ("Id"),
+	CONSTRAINT FK_PRODUCT_TAX_TAXID FOREIGN KEY ("TaxId") REFERENCES "Tax" ("Id"),
+	CONSTRAINT FK_PRODUCT_CATEGORY_CATEGORYID FOREIGN KEY ("CategoryId") REFERENCES "Category" ("Id")
 );
 
-create table "Image" (
-
-	"Id" serial primary key,
-	"Link" varchar(255) not null,
-	"Name" varchar(100),
-	"ProductId" int not null,
-
-	Constraint FK_Image_Product_ProductId Foreign key ("ProductId") references "Product"("Id")
+CREATE TABLE "Image" (
+	"Id" SERIAL PRIMARY KEY,
+	"Link" VARCHAR(255) NOT NULL,
+	"Name" VARCHAR(100),
+	"ProductId" INT NOT NULL,
+	CONSTRAINT FK_IMAGE_PRODUCT_PRODUCTID FOREIGN KEY ("ProductId") REFERENCES "Product" ("Id")
 );
 
-create table "Role"(
-	"Id" serial primary key,
-	"Name" varchar(50) not null
+CREATE TABLE "Role" (
+	"Id" SERIAL PRIMARY KEY,
+	"Name" VARCHAR(50) NOT NULL
 );
 
-create table "Employee"(
-	"Id" serial primary key,
-	"FirstName" varchar(20) not null,
-	"LastName" varchar(20) not null,
-	"Email" varchar(255) not null,
-	"Password" varchar(255) not null,
-	"PhoneNumber" varchar(30) not null,
-	"RoleId" int not null,
-
-	Constraint FK_Employee_Role_RoleId Foreign key ("RoleId") references "Role"("Id")
-		
+CREATE TABLE "Employee" (
+	"Id" SERIAL PRIMARY KEY,
+	"FirstName" VARCHAR(20) NOT NULL,
+	"LastName" VARCHAR(20) NOT NULL,
+	"Email" VARCHAR(255) NOT NULL,
+	"Password" VARCHAR(255) NOT NULL,
+	"PhoneNumber" VARCHAR(30) NOT NULL,
+	"RoleId" INT NOT NULL,
+	CONSTRAINT FK_EMPLOYEE_ROLE_ROLEID FOREIGN KEY ("RoleId") REFERENCES "Role" ("Id")
 );
 
-create table "Costumer"(
-
-	"Id" serial primary key,
-	"FirstName" varchar(20) not null,
-	"LastName" varchar(20) not null,
-	"Email" varchar(255) not null,
-	"Password" varchar(255) not null,
-	"PhoneNumber" varchar(30) not null,
-	"AdressStreet" varchar(100) not null,
-	"AdressCity" varchar(100) not null,
-	"AdressCountry" varchar(30) not null
-	
+CREATE TABLE "Costumer" (
+	"Id" SERIAL PRIMARY KEY,
+	"FirstName" VARCHAR(20) NOT NULL,
+	"LastName" VARCHAR(20) NOT NULL,
+	"Email" VARCHAR(255) NOT NULL,
+	"Password" VARCHAR(255) NOT NULL,
+	"PhoneNumber" VARCHAR(30) NOT NULL,
+	"AddressStreet" VARCHAR(100) NOT NULL,
+	"AddressCity" VARCHAR(100) NOT NULL,
+	"AddressCountry" VARCHAR(30) NOT NULL
 );
 
-
-create table "Order"(
-	"Id" serial primary key,
-	"OrderNumber" varchar(30) not null,
-	"CostumerId" int not null,
-	"OrderDate" date not null,
-	"ShipmentDate" date not null,
-	"IsFinished" bool,
-	"EmployeeId" int,
-
-	Constraint FK_Order_Employee_EmployeeId Foreign key ("EmployeeId") references "Employee"("Id"),
-	Constraint FK_Order_Costumer_CostumerId Foreign key ("CostumerId") references "Costumer"("Id")
-	
+CREATE TABLE "Order" (
+	"Id" SERIAL PRIMARY KEY,
+	"OrderNumber" VARCHAR(30) NOT NULL,
+	"CostumerId" INT NOT NULL,
+	"OrderDate" DATE NOT NULL,
+	"ShipmentDate" DATE NOT NULL,
+	"IsFinished" BOOL,
+	"EmployeeId" INT,
+	CONSTRAINT FK_ORDER_EMPLOYEE_EMPLOYEEID FOREIGN KEY ("EmployeeId") REFERENCES "Employee" ("Id"),
+	CONSTRAINT FK_ORDER_COSTUMER_COSTUMERID FOREIGN KEY ("CostumerId") REFERENCES "Costumer" ("Id")
 );
 
-
-create table "Discount"(
-	"Id" serial primary key,
-	"Name" varchar(30),
-	"Percentage" decimal(2,1),
-	"OrderId" int,
-
-	Constraint FK_Order_Order_OrderId Foreign key ("OrderId") references "Order"("Id")
-	
+CREATE TABLE "Discount" (
+	"Id" SERIAL PRIMARY KEY,
+	"Name" VARCHAR(30),
+	"Percentage" DECIMAL(2, 1),
+	"OrderId" INT,
+	CONSTRAINT FK_ORDER_ORDER_ORDERID FOREIGN KEY ("OrderId") REFERENCES "Order" ("Id")
 );
 
 ------------------ TABLICE VISE NA VISE -----------------------
-
-create table "WarehouseProduct"(
-
-	"Id" serial primary key,
-	"WarehouseId" int not null,
-	"ProductId" int not null,
-	"Quantity" int not null,
-	
-	Constraint FK_WarehouseProduct_Warehouse_WarehouseId Foreign key ("WarehouseId") references "Warehouse"("Id"),
-	Constraint FK_WarehouseProduct_Product_ProductId Foreign key ("ProductId") references "Product"("Id")
-	
+CREATE TABLE "WarehouseProduct" (
+	"Id" SERIAL PRIMARY KEY,
+	"WarehouseId" INT NOT NULL,
+	"ProductId" INT NOT NULL,
+	"Quantity" INT NOT NULL,
+	CONSTRAINT FK_WAREHOUSEPRODUCT_WAREHOUSE_WAREHOUSEID FOREIGN KEY ("WarehouseId") REFERENCES "Warehouse" ("Id"),
+	CONSTRAINT FK_WAREHOUSEPRODUCT_PRODUCT_PRODUCTID FOREIGN KEY ("ProductId") REFERENCES "Product" ("Id")
 );
 
-create table "ProductOrder"(
-	"Id" serial primary key,
-	"OrderId" int not null,
-	"ProductId" int not null,
-	Constraint FK_ProductOrder_Product_ProductId Foreign key ("ProductId") references "Product"("Id"),
-	Constraint FK_ProductOrder_Order_OrderId Foreign key ("OrderId") references "Order"("Id")
-	
+CREATE TABLE "ProductOrder" (
+	"Id" SERIAL PRIMARY KEY,
+	"OrderId" INT NOT NULL,
+	"ProductId" INT NOT NULL,
+	CONSTRAINT FK_PRODUCTORDER_PRODUCT_PRODUCTID FOREIGN KEY ("ProductId") REFERENCES "Product" ("Id"),
+	CONSTRAINT FK_PRODUCTORDER_ORDER_ORDERID FOREIGN KEY ("OrderId") REFERENCES "Order" ("Id")
 );
