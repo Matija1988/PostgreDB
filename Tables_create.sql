@@ -1,7 +1,7 @@
 CREATE TABLE "Warehouse" (
 	"Id" SERIAL PRIMARY KEY,
 	"AddressStreet" VARCHAR(100) NOT NULL,
-	"AddressMunicipality" VARCHAR(100) NOT NULL,
+	"AddressCity" VARCHAR(100) NOT NULL,
 	"AddressCountry" VARCHAR(100) NOT NULL,
 	"Name" VARCHAR(100) NOT NULL
 );
