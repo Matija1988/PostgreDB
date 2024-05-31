@@ -1,5 +1,6 @@
 Create table "Warehouse"(
 	
+    "Id" serial Primary key ,
 	"AdressStreet" varchar(100) not null,
 	"AdressMunicipality" varchar(100) not null,
 	"AdressCountry" varchar(100) not null,
