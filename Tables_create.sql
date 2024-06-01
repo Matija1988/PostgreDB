@@ -39,7 +39,7 @@ CREATE TABLE "Product" (
 	"Id" SERIAL PRIMARY KEY,
 	"Name" VARCHAR(100) NOT NULL,
 	"Description" VARCHAR(1200),
-	"PrinceNoTax" DECIMAL(5, 2) NOT NULL,
+	"PriceNoTax" DECIMAL(5, 2) NOT NULL,
 	"PriceWTax" DECIMAL(5, 2),
 	"ProducerId" INT NOT NULL,
 	"SoftDelete" BOOL,
@@ -53,6 +53,10 @@ CREATE TABLE "Product" (
 	CONSTRAINT FK_PRODUCT_TAX_TAXID FOREIGN KEY ("TaxId") REFERENCES "Tax" ("Id"),
 	CONSTRAINT FK_PRODUCT_CATEGORY_CATEGORYID FOREIGN KEY ("CategoryId") REFERENCES "Category" ("Id")
 );
+
+Alter table "Product" Alter column "PriceNoTax" type decimal(10,2); 
+
+Alter table "Product" drop constraint FK_PRODUCT_WAREHOUSE_WAREHOUSEID;
 
 CREATE TABLE "Image" (
 	"Id" SERIAL PRIMARY KEY,
